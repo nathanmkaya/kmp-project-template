@@ -17,19 +17,10 @@ internal fun Project.configureKotlinMultiplatform() {
     extensions.configure<KotlinMultiplatformExtension> {
         applyDefaultHierarchyTemplate()
 
-        jvm("desktop")
         androidTarget()
         iosSimulatorArm64()
         iosX64()
         iosArm64()
-        js(IR) {
-            this.nodejs()
-            binaries.executable()
-        }
-        wasmJs() {
-            browser()
-            nodejs()
-        }
 
         compilerOptions {
             freeCompilerArgs.add("-Xexpect-actual-classes")

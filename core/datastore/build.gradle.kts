@@ -39,9 +39,5 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.multiplatform.settings.test)
         }
-
-        desktopMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
-        }
     }
 }

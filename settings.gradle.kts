@@ -37,8 +37,6 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":template-shared")
 include(":template-android")
-include(":template-desktop")
-include(":template-web")
 
 include(":core:data")
 include(":core:domain")
