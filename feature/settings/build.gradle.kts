@@ -13,7 +13,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.feature.settings"
+    namespace = "dev.nathanmkaya.template.feature.settings"
 }
 
 kotlin {

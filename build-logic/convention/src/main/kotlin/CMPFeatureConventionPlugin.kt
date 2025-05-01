@@ -2,7 +2,7 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import org.mifos.libs
+import dev.nathanmkaya.template.libs
 
 /**
  * Plugin that applies the CMP feature plugin and configures it.
@@ -19,12 +19,12 @@ class CMPFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("org.mifos.kmp.library")
-                apply("org.mifos.kmp.koin")
+                apply("dev.nathanmkaya.template.kmp.library")
+                apply("dev.nathanmkaya.template.kmp.koin")
                 apply("org.jetbrains.kotlin.plugin.compose")
                 apply("org.jetbrains.compose")
-                apply("org.mifos.detekt.plugin")
-                apply("org.mifos.spotless.plugin")
+                apply("dev.nathanmkaya.template.detekt.plugin")
+                apply("dev.nathanmkaya.template.spotless.plugin")
             }
 
             dependencies {

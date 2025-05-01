@@ -14,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.core.ui"
+    namespace = "dev.nathanmkaya.template.core.ui"
 }
 
 kotlin {
@@ -51,5 +51,5 @@ kotlin {
 compose.resources {
     publicResClass = true
     generateResClass = always
-    packageOfResClass = "org.mifos.core.ui.generated.resources"
+    packageOfResClass = "dev.nathanmkaya.template.core.ui.generated.resources"
 }

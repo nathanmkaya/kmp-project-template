@@ -1,7 +1,7 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.mifos.configureSpotless
-import org.mifos.spotlessGradle
+import dev.nathanmkaya.template.configureSpotless
+import dev.nathanmkaya.template.spotlessGradle
 
 /**
  * Plugin that applies the Spotless plugin and configures it.

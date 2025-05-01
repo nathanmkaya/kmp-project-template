@@ -2,7 +2,7 @@
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
-import org.mifos.libs
+import dev.nathanmkaya.template.libs
 
 /**
  * Plugin that applies the Koin plugin and configures it.

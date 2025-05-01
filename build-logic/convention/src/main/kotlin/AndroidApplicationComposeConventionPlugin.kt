@@ -3,7 +3,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.getByType
-import org.mifos.configureAndroidCompose
+import dev.nathanmkaya.template.configureAndroidCompose
 
 /**
  * Plugin that applies the Android application and Compose plugins and configures them.

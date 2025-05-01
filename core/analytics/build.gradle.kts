@@ -14,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.core.analytics"
+    namespace = "dev.nathanmkaya.template.core.analytics"
 }
 
 kotlin {

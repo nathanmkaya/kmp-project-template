@@ -1,8 +1,8 @@
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.mifos.configureDetekt
-import org.mifos.detektGradle
+import dev.nathanmkaya.template.configureDetekt
+import dev.nathanmkaya.template.detektGradle
 
 /**
  * Plugin that applies the Detekt plugin and configures it.

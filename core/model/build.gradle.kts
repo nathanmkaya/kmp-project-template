@@ -14,7 +14,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.core.model"
+    namespace = "dev.nathanmkaya.template.core.model"
 }
 
 kotlin {

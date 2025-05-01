@@ -13,7 +13,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.core.datastore"
+    namespace = "dev.nathanmkaya.template.core.datastore"
     defaultConfig {
         consumerProguardFiles("consumer-rules.pro")
     }

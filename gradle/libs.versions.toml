@@ -250,9 +250,9 @@ android-library = { id = "com.android.library", version.ref = "androidGradlePlug
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
-android-application-convention = { id = "org.mifos.android.application", version = "unspecified" }
-android-application-compose-convention = { id = "org.mifos.android.application.compose", version = "unspecified" }
-android-application-flavors-convention = { id = "org.mifos.android.application.flavors", version = "unspecified" }
+android-application-convention = { id = "dev.nathanmkaya.template.android.application", version = "unspecified" }
+android-application-compose-convention = { id = "dev.nathanmkaya.template.android.application.compose", version = "unspecified" }
+android-application-flavors-convention = { id = "dev.nathanmkaya.template.android.application.flavors", version = "unspecified" }
 
 # KMP & CMP Plugins
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
@@ -265,15 +265,15 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 ktrofit = { id = "de.jensklingenberg.ktorfit", version.ref = "ktorfit" }
 wire = { id = "com.squareup.wire", version.ref = "wire" }
 
-cmp-feature-convention = { id = "org.mifos.cmp.feature", version = "unspecified" }
-kmp-koin-convention = { id = "org.mifos.kmp.koin", version = "unspecified" }
-kmp-library-convention = { id = "org.mifos.kmp.library", version = "unspecified" }
+cmp-feature-convention = { id = "dev.nathanmkaya.template.cmp.feature", version = "unspecified" }
+kmp-koin-convention = { id = "dev.nathanmkaya.template.kmp.koin", version = "unspecified" }
+kmp-library-convention = { id = "dev.nathanmkaya.template.kmp.library", version = "unspecified" }
 
 # Utility Plugins
-detekt-convention = { id = "org.mifos.detekt.plugin", version = "unspecified" }
-git-hooks-convention = { id = "org.mifos.git.hooks", version = "unspecified" }
-ktlint-convention = { id = "org.mifos.ktlint.plugin", version = "unspecified" }
-spotless-convention = { id = "org.mifos.spotless.plugin", version = "unspecified" }
+detekt-convention = { id = "dev.nathanmkaya.template.detekt.plugin", version = "unspecified" }
+git-hooks-convention = { id = "dev.nathanmkaya.template.git.hooks", version = "unspecified" }
+ktlint-convention = { id = "dev.nathanmkaya.template.ktlint.plugin", version = "unspecified" }
+spotless-convention = { id = "dev.nathanmkaya.template.spotless.plugin", version = "unspecified" }
 
 dependencyGuard = { id = "com.dropbox.dependency-guard", version.ref = "dependencyGuard" }
 

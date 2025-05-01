@@ -31,14 +31,14 @@ extensions.configure<org.ajoberstar.reckon.gradle.ReckonExtension> {
     setTagWriter { it.toString() }
 }
 
-rootProject.name = "kmp-project-template"
+rootProject.name = "Template"
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-include(":mifos-shared")
-include(":mifos-android")
-include(":mifos-desktop")
-include(":mifos-web")
+include(":template-shared")
+include(":template-android")
+include(":template-desktop")
+include(":template-web")
 
 include(":core:data")
 include(":core:domain")

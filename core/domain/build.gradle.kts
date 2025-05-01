@@ -12,7 +12,7 @@ plugins {
 }
 
 android {
-    namespace = "org.mifos.core.domain"
+    namespace = "dev.nathanmkaya.template.core.domain"
 }
 
 kotlin {
