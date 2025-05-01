@@ -33,7 +33,7 @@ APPNAME=${3:-$PROJECT_NAME}
 SUBDIR=${PACKAGE//.//} # Replaces . with /
 PROJECT_NAME_LOWERCASE=$(echo "$PROJECT_NAME" | tr '[:upper:]' '[:lower:]')
 
-# Capitalize first letter for replacing "Mifos" prefix
+# Capitalize first letter for replacing "Template" prefix
 capitalize_first() {
     echo "$1" | awk '{print toupper(substr($0,1,1)) substr($0,2)}'
 }
@@ -57,26 +57,26 @@ update_plugin_ids() {
     print_section "Updating Plugin IDs"
 
     echo "🔄 Updating convention plugin IDs in Gradle files..."
-    find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/id(\"org\.mifos\./id(\"$ESCAPED_PACKAGE./g" {} \;
+    find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/id(\"org\.template\./id(\"$ESCAPED_PACKAGE./g" {} \;
 
     echo "🔄 Updating plugin IDs in version catalog files..."
-    find ./ -type f -name "*.versions.toml" -exec sed -i.bak "s/id = \"org\.mifos\./id = \"$ESCAPED_PACKAGE./g" {} \;
+    find ./ -type f -name "*.versions.toml" -exec sed -i.bak "s/id = \"org\.template\./id = \"$ESCAPED_PACKAGE./g" {} \;
 
     if [ -d "build-logic" ]; then
         echo "🔄 Updating build-logic plugin IDs..."
-        find ./build-logic -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.mifos\./$ESCAPED_PACKAGE./g" {} \;
+        find ./build-logic -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.template\./$ESCAPED_PACKAGE./g" {} \;
         echo "🔄 Updating plugin applications in plugin classes..."
-        find ./build-logic -type f -name "*.kt" -exec sed -i.bak "s/apply(\"org\.mifos\./apply(\"$ESCAPED_PACKAGE./g" {} \;
+        find ./build-logic -type f -name "*.kt" -exec sed -i.bak "s/apply(\"org\.template\./apply(\"$ESCAPED_PACKAGE./g" {} \;
     fi
 
     # Rename package and imports in Kotlin files
     echo "🔄 Renaming packages to $PACKAGE"
-    find ./ -type f -name "*.kt" -exec sed -i.bak "s/package org\.mifos/package $PACKAGE/g" {} \;
-    find ./ -type f -name "*.kt" -exec sed -i.bak "s/import org\.mifos/import $PACKAGE/g" {} \;
+    find ./ -type f -name "*.kt" -exec sed -i.bak "s/package org\.template/package $PACKAGE/g" {} \;
+    find ./ -type f -name "*.kt" -exec sed -i.bak "s/import org\.template/import $PACKAGE/g" {} \;
 
     # Update Gradle files
     echo "🔄 Updating Gradle files"
-    find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.mifos/$PACKAGE/g" {} \;
+    find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.template/$PACKAGE/g" {} \;
     # Then update only the root settings.gradle.kts file
     sed -i.bak "s/rootProject\.name = \".*\"/rootProject.name = \"$PROJECT_NAME\"/g" ./settings.gradle.kts
 
@@ -98,8 +98,8 @@ update_plugin_patterns() {
 
     for plugin_type in "${PLUGIN_TYPES[@]}"; do
         echo "🔄 Updating pattern: $plugin_type"
-        find ./ -type f -name "*.versions.toml" -exec sed -i.bak "s/org\.mifos\.$plugin_type/$ESCAPED_PACKAGE.$plugin_type/g" {} \;
-        find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.mifos\.$plugin_type/$ESCAPED_PACKAGE.$plugin_type/g" {} \;
+        find ./ -type f -name "*.versions.toml" -exec sed -i.bak "s/org\.template\.$plugin_type/$ESCAPED_PACKAGE.$plugin_type/g" {} \;
+        find ./ -type f -name "*.gradle.kts" -exec sed -i.bak "s/org\.template\.$plugin_type/$ESCAPED_PACKAGE.$plugin_type/g" {} \;
     done
 }
 
@@ -108,10 +108,10 @@ update_compose_resources() {
 
     local count=0
     while IFS= read -r file; do
-        if grep -q "packageOfResClass.*org\.mifos" "$file"; then
+        if grep -q "packageOfResClass.*org\.template" "$file"; then
             echo "📦 Processing: $file"
             echo "Debug: Attempting to update $file with package $ESCAPED_PACKAGE"
-            if ! sed -i.bak "s/packageOfResClass = \"org\.mifos\.\([^\"]*\)\"/packageOfResClass = \"$ESCAPED_PACKAGE.\1\"/g" "$file"; then
+            if ! sed -i.bak "s/packageOfResClass = \"org\.template\.\([^\"]*\)\"/packageOfResClass = \"$ESCAPED_PACKAGE.\1\"/g" "$file"; then
                 echo "Error: sed command failed for $file"
                 return 1
             fi
@@ -132,8 +132,8 @@ update_application_class() {
 
     if [[ $APPNAME != MyApplication ]]; then
         echo "📝 Renaming application to $APPNAME"
-        find ./ -type f \( -name "*.kt" -or -name "*.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/MifosApp/$APPNAME/g" {} \;
-        find ./ -name "MifosApp.kt" | sed "p;s/MifosApp/$APPNAME/" | tr '\n' '\0' | xargs -0 -n 2 mv 2>/dev/null || true
+        find ./ -type f \( -name "*.kt" -or -name "*.gradle.kts" -or -name "*.xml" \) -exec sed -i.bak "s/TemplateApp/$APPNAME/g" {} \;
+        find ./ -name "TemplateApp.kt" | sed "p;s/TemplateApp/$APPNAME/" | tr '\n' '\0' | xargs -0 -n 2 mv 2>/dev/null || true
         echo "✅ Application class renamed successfully"
     else
         echo "ℹ️ Skipping application rename as name is default"
@@ -144,10 +144,10 @@ update_application_class() {
 update_ios_config() {
     print_section "Updating iOS Configuration"
 
-    if [ -d "mifos-ios" ]; then
+    if [ -d "template-ios" ]; then
         echo "🔄 Updating iOS project files..."
-        find ./mifos-ios -type f -name "*.xcodeproj" -exec sed -i.bak "s/PRODUCT_BUNDLE_IDENTIFIER = .*$/PRODUCT_BUNDLE_IDENTIFIER = $PACKAGE;/g" {} \;
-        find ./mifos-ios -type f -name "*.plist" -exec sed -i.bak "s/PRODUCT_BUNDLE_IDENTIFIER = .*$/PRODUCT_BUNDLE_IDENTIFIER = $PACKAGE;/g" {} \;
+        find ./template-ios -type f -name "*.xcodeproj" -exec sed -i.bak "s/PRODUCT_BUNDLE_IDENTIFIER = .*$/PRODUCT_BUNDLE_IDENTIFIER = $PACKAGE;/g" {} \;
+        find ./template-ios -type f -name "*.plist" -exec sed -i.bak "s/PRODUCT_BUNDLE_IDENTIFIER = .*$/PRODUCT_BUNDLE_IDENTIFIER = $PACKAGE;/g" {} \;
         echo "✅ iOS configuration updated"
     else
         echo "ℹ️ No iOS directory found, skipping iOS configuration"
@@ -167,27 +167,27 @@ process_module_dirs() {
 
             mkdir -p "$kotlin_dir/$SUBDIR"
 
-            if [ -d "$kotlin_dir/org/mifos" ]; then
-                echo "📦 Moving files from org/mifos to $SUBDIR"
-                cp -r "$kotlin_dir/org/mifos"/* "$kotlin_dir/$SUBDIR/" 2>/dev/null || true
+            if [ -d "$kotlin_dir/org/template" ]; then
+                echo "📦 Moving files from org/template to $SUBDIR"
+                cp -r "$kotlin_dir/org/template"/* "$kotlin_dir/$SUBDIR/" 2>/dev/null || true
 
                 if [ -d "$kotlin_dir/$SUBDIR" ]; then
                     echo "📝 Updating package declarations and imports"
                     find "$kotlin_dir/$SUBDIR" -type f -name "*.kt" -exec sed -i.bak \
-                        -e "s/package org\.mifos/package $PACKAGE/g" \
+                        -e "s/package org\.template/package $PACKAGE/g" \
                         -e "s/package com\.niyaj/package $PACKAGE/g" \
-                        -e "s/import org\.mifos/import $PACKAGE/g" \
+                        -e "s/import org\.template/import $PACKAGE/g" \
                         -e "s/import com\.niyaj/import $PACKAGE/g" {} \;
                 fi
 
                 echo "🗑️ Cleaning up old directory structure"
-                rm -rf "$kotlin_dir/org/mifos"
+                rm -rf "$kotlin_dir/org/template"
             fi
         fi
     done
 
-    find "$module_path" -type f -name "*.kt" -exec sed -i.bak "s/import org\.mifos/import $PACKAGE/g" {} \;
-    find "$module_path" -type f -name "*.kt" -exec sed -i.bak "s/package org\.mifos/package $PACKAGE/g" {} \;
+    find "$module_path" -type f -name "*.kt" -exec sed -i.bak "s/import org\.template/import $PACKAGE/g" {} \;
+    find "$module_path" -type f -name "*.kt" -exec sed -i.bak "s/package org\.template/package $PACKAGE/g" {} \;
 }
 
 process_module_content() {
@@ -202,27 +202,27 @@ process_module_content() {
 
 # Function to rename files
 rename_files() {
-    echo "🔄 Renaming files with Mifos prefix..."
-    find . -type f -name "Mifos*.kt" | while read -r file; do
-      local newfile=$(echo "$file" | sed "s/MifosApp/$PROJECT_NAME_CAPITALIZED/g; s/Mifos/$PROJECT_NAME_CAPITALIZED/g")
+    echo "🔄 Renaming files with Template prefix..."
+    find . -type f -name "Template*.kt" | while read -r file; do
+      local newfile=$(echo "$file" | sed "s/TemplateApp/$PROJECT_NAME_CAPITALIZED/g; s/Template/$PROJECT_NAME_CAPITALIZED/g")
       echo "📝 Renaming $file to $newfile"
       mv "$file" "$newfile"
     done
 
-    # Update code elements that start with Mifos
-    echo "🔄 Updating code elements with Mifos prefix..."
+    # Update code elements that start with Template
+    echo "🔄 Updating code elements with Template prefix..."
     find ./ -type f -name "*.kt" -exec sed -i.bak \
-        -e "s/MifosApp\([^A-Za-z0-9]\|$\)/$PROJECT_NAME_CAPITALIZED\1/g" \
-        -e "s/Mifos\([A-Z][a-zA-Z0-9]*\)/$PROJECT_NAME_CAPITALIZED\1/g" {} \;
+        -e "s/TemplateApp\([^A-Za-z0-9]\|$\)/$PROJECT_NAME_CAPITALIZED\1/g" \
+        -e "s/Template\([A-Z][a-zA-Z0-9]*\)/$PROJECT_NAME_CAPITALIZED\1/g" {} \;
     find ./ -type f -name "*.kt" -exec sed -i.bak \
-        -e "s/mifosApp\([^A-Za-z0-9]\|$\)/${PROJECT_NAME_LOWERCASE}\1/g" \
-        -e "s/mifos\([A-Z][a-zA-Z0-9]*\)/${PROJECT_NAME_LOWERCASE}\1/g" {} \;
+        -e "s/templateApp\([^A-Za-z0-9]\|$\)/${PROJECT_NAME_LOWERCASE}\1/g" \
+        -e "s/template\([A-Z][a-zA-Z0-9]*\)/${PROJECT_NAME_LOWERCASE}\1/g" {} \;
 
     # Update references to renamed files in imports
     echo "🔄 Updating import statements..."
     find ./ -type f -name "*.kt" -exec sed -i.bak \
-        -e "s/import.*\.MifosApp/import $PACKAGE.$PROJECT_NAME_CAPITALIZED/g" \
-        -e "s/import.*\.Mifos/import $PACKAGE.$PROJECT_NAME_CAPITALIZED/g" {} \;
+        -e "s/import.*\.TemplateApp/import $PACKAGE.$PROJECT_NAME_CAPITALIZED/g" \
+        -e "s/import.*\.Template/import $PACKAGE.$PROJECT_NAME_CAPITALIZED/g" {} \;
 }
 
 # Function to update module names in settings.gradle.kts
@@ -232,8 +232,8 @@ update_gradle_settings() {
     local modules=("shared" "android" "desktop" "web" "ios")
 
     for module in "${modules[@]}"; do
-        sed -i.bak "s/include(\":mifos-$module\")/include(\":$PROJECT_NAME_LOWERCASE-$module\")/g" settings.gradle.kts
-        echo "✅ Updated module: mifos-$module → $PROJECT_NAME_LOWERCASE-$module"
+        sed -i.bak "s/include(\":template-$module\")/include(\":$PROJECT_NAME_LOWERCASE-$module\")/g" settings.gradle.kts
+        echo "✅ Updated module: template-$module → $PROJECT_NAME_LOWERCASE-$module"
     done
 }
 
@@ -243,12 +243,12 @@ rename_application_module_directories() {
     local modules=("shared" "android" "desktop" "web" "ios")
 
     for module in "${modules[@]}"; do
-        if [ -d "mifos-$module" ]; then
-            echo "📁 Renaming mifos-$module to $PROJECT_NAME_LOWERCASE-$module"
-            mv "mifos-$module" "$PROJECT_NAME_LOWERCASE-$module"
+        if [ -d "template-$module" ]; then
+            echo "📁 Renaming template-$module to $PROJECT_NAME_LOWERCASE-$module"
+            mv "template-$module" "$PROJECT_NAME_LOWERCASE-$module"
             echo "✅ Application Module directory renamed successfully"
         else
-            echo "ℹ️ Application Module mifos-$module not found, skipping"
+            echo "ℹ️ Application Module template-$module not found, skipping"
         fi
     done
 }
@@ -262,7 +262,7 @@ update_application_module_references() {
     local modules=("shared" "android" "desktop" "web")
 
     for module in "${modules[@]}"; do
-        old_modules+=("$(kebab_to_camel "mifos-$module")")
+        old_modules+=("$(kebab_to_camel "template-$module")")
         new_modules+=("$(kebab_to_camel "$PROJECT_NAME_LOWERCASE-$module")")
     done
 
@@ -282,13 +282,13 @@ update_run_configurations() {
 
     # Update references in XML files
     local replacements=(
-        "s/name=\"mifos-/name=\"$PROJECT_NAME_LOWERCASE-/g"
-        "s/module name=\"[^\"]*\.mifos-/module name=\"$PROJECT_NAME_LOWERCASE\.$PROJECT_NAME_LOWERCASE-/g"
-        "s/kmp-project-template\.mifos-/$PROJECT_NAME_LOWERCASE\.$PROJECT_NAME_LOWERCASE-/g"
-        "s/:mifos-desktop/:$PROJECT_NAME_LOWERCASE-desktop/g"
-        "s/:mifos-web/:$PROJECT_NAME_LOWERCASE-web/g"
-        "s/value=\":mifos-desktop:/value=\":$PROJECT_NAME_LOWERCASE-desktop:/g"
-        "s/value=\":mifos-web:/value=\":$PROJECT_NAME_LOWERCASE-web:/g"
+        "s/name=\"template-/name=\"$PROJECT_NAME_LOWERCASE-/g"
+        "s/module name=\"[^\"]*\.template-/module name=\"$PROJECT_NAME_LOWERCASE\.$PROJECT_NAME_LOWERCASE-/g"
+        "s/kmp-project-template\.template-/$PROJECT_NAME_LOWERCASE\.$PROJECT_NAME_LOWERCASE-/g"
+        "s/:template-desktop/:$PROJECT_NAME_LOWERCASE-desktop/g"
+        "s/:template-web/:$PROJECT_NAME_LOWERCASE-web/g"
+        "s/value=\":template-desktop:/value=\":$PROJECT_NAME_LOWERCASE-desktop:/g"
+        "s/value=\":template-web:/value=\":$PROJECT_NAME_LOWERCASE-web:/g"
     )
 
     for replacement in "${replacements[@]}"; do
@@ -296,9 +296,9 @@ update_run_configurations() {
     done
 
     # Rename configuration files
-    for config_file in .run/mifos-*.run.xml; do
+    for config_file in .run/template-*.run.xml; do
         if [ -f "$config_file" ]; then
-            new_config_file=$(echo "$config_file" | sed "s/mifos-/$PROJECT_NAME_LOWERCASE-/")
+            new_config_file=$(echo "$config_file" | sed "s/template-/$PROJECT_NAME_LOWERCASE-/")
             echo "📝 Renaming run configuration: $config_file → $new_config_file"
             mv "$config_file" "$new_config_file"
         fi
@@ -345,7 +345,7 @@ print_final_summary(){
     echo "   - Application name set to: $APPNAME"
     echo
     echo "3. Module Updates:"
-    echo "   - Renamed all mifos-prefixed modules"
+    echo "   - Renamed all template-prefixed modules"
     echo "   - Updated module references in Gradle files"
     echo "   - Updated module imports and packages"
     echo
@@ -355,7 +355,7 @@ print_final_summary(){
     echo "   - Updated iOS bundle identifiers (if applicable)"
     echo
     echo "5. Code Updates:"
-    echo "   - Renamed Mifos-prefixed files to $PROJECT_NAME_CAPITALIZED"
+    echo "   - Renamed Template-prefixed files to $PROJECT_NAME_CAPITALIZED"
     echo "   - Updated package declarations and imports"
     echo "   - Updated typesafe accessors:"
     echo "     • projects.$NEW_CAMEL_SHARED"
