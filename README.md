@@ -17,34 +17,15 @@
 
 ![badge-android](http://img.shields.io/badge/platform-android-6EDB8D.svg?style=flat)
 ![badge-ios](http://img.shields.io/badge/platform-ios-CDCDCD.svg?style=flat)
-![badge-desktop](http://img.shields.io/badge/platform-desktop-DB413D.svg?style=flat)
-![badge-js](http://img.shields.io/badge/platform-web-FDD835.svg?style=flat)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/openMF/kmp-project-template/blob/development/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/openMF/kmp-project-template/releases/)
-[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/openMF/kmp-project-template/issues/)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/nathanmkaya/kmp-project-template/blob/development/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/Naereen/StrapDown.js.svg)](https://github.com/nathanmkaya/kmp-project-template/releases/)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/nathanmkaya/kmp-project-template/issues/)
 
-[![Pr Checks](https://github.com/openMF/kmp-project-template/actions/workflows/pr-check.yml/badge.svg)](https://github.com/openMF/kmp-project-template/actions/workflows/pr-check.yml)
-[![Slack](https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=slack&logoColor=white)](https://join.slack.com/t/mifos/shared_invite/zt-2wvi9t82t-DuSBdqdQVOY9fsqsLjkKPA)
-[![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=flat-square&logo=jira&logoColor=white)](https://mifosforge.jira.com/jira/software/c/projects/MM/issues/?filter=allissues&jql=project%20%3D%20%22MM%22%20ORDER%20BY%20created%20DESC)
+[![Pr Checks](https://github.com/nathanmkaya/kmp-project-template/actions/workflows/pr-check.yml/badge.svg)](https://github.com/nathanmkaya/kmp-project-template/actions/workflows/pr-check.yml)
 
 </div>
-
-> \[!Note]
->
-> This branch is designed for fully customized projects. Running the customizer.sh script will
-> rename all application module prefixes (e.g., mifos-) with your project name and update the
-> namespaces, packages, and other related configurations accordingly.
->
-> For partial customization, please use the [dev](https://github.com/openMF/kmp-project-template/tree/dev) branch instead.
-
-> **For Example:**
->
-> If your project name is myproject, the script will:
-> - Rename modules like mifos-android to myproject-android, mifos-desktop to myproject-desktop, etc.
-> - Update the package structure, such as org.mifos to org.myproject, etc
-> - Adjust namespaces in the codebase to align with your project name.
 
 ## Overview
 
@@ -221,11 +202,9 @@ graph TD
     D --> D1[home]
     D --> D2[profile]
     D --> D3[settings]
-    E --> E1[mifos-android]
-    E --> E2[mifos-ios]
-    E --> E3[mifos-desktop]
-    E --> E4[mifos-web]
-    E --> E5[mifos-shared]
+    E --> E1[template-android]
+    E --> E2[template-ios]
+    E --> E5[template-shared]
 
     subgraph Core Modules
         C1
